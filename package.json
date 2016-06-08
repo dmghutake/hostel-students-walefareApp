@@ -1,5 +1,5 @@
 {
-  "name": "All Hostel Students Walefare Associstion",
+  "name": "AllHostelStudentsWalefareAssocistion",
   "main": "server.js",
   "dependencies": {
     "body-parser": "~1.4.2",
