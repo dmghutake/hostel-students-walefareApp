@@ -8,17 +8,20 @@ app.factory('Registrations', function ($resource) {
 });
 
 app.controller('ModalDemoCtrl',['$scope','$modal','$log', function ($scope, $modal, $log) {
-
-
- $scope.groups = [];
-
+  $scope.item = {};
+  $scope.hostels = [{id:1,name:'Youth Hostel'},{id:2,name:'Modern Hostel'},{id:3,name:'Travel Devpt Govt Boys Hostel'}];
+  $scope.studentsTypes = [{id:1,name:'Alumni'},{id:2,name:'New'}];
+  $scope.item.segmentName = $scope.hostels[0].name;//hostels
+  $scope.item.studentType= $scope.studentsTypes[0].name;//Alumni-New
 
  $scope.open = function () {
-
-	$scope.item = {};
-	$scope.item.segmentName = $scope.groups[0];
-
-	 $scope.sessiontopics = [];
+	 $scope.sessiontopics = [
+		{ name: 'Engineering',selected: true},
+		{ name: 'Medical',selected: false},
+		{ name: 'Art', selected: false},
+		{ name: 'Commerce',selected: false},
+		{ name: 'Science',selected: false},
+		{ name: 'Business Management',selected: false}];
 
     var modalInstance = $modal.open({
       scope : $scope,
@@ -38,12 +41,11 @@ app.controller('ModalDemoCtrl',['$scope','$modal','$log', function ($scope, $mod
     });
   };
 
-
 }]);
 
 app.controller('ModalInstanceCtrl',['$scope','$modalInstance','item','Registrations','AlertBanner',function ($scope, $modalInstance,item,Registrations,AlertBanner) {
   $scope.item = item;
-
+   var ok;
 
   $scope.sessionSelected = function() {
 
@@ -59,41 +61,50 @@ app.controller('ModalInstanceCtrl',['$scope','$modalInstance','item','Registrati
   }
 
   $scope.ok = function () {
+    var sessionsSelected = [];
 
-   var sessionsSelected = [];
-
-   $scope.sessiontopics.forEach(function(topic) {
-		  if (topic.selected) {
-             sessionsSelected.push(topic.name);
-		  }
-	});
-    $scope.item.sessionsSelected = sessionsSelected;
-
-
-	var registration = new Registrations({
-               name : $scope.item.name,
-			   productName : $scope.item.productName,
-			   segmentName : $scope.item.segmentName,
-			   sessionsSelected : $scope.item.sessionsSelected
-    });
+    $scope.sessiontopics.forEach(function(topic) {
+       if (topic.selected) {
+              sessionsSelected.push(topic.name);
+       }
+   });
+     $scope.item.sessionsSelected = sessionsSelected;
 
 
-	registration.$save(function (data) {
-		                console.log(data);
-						AlertBanner.publish({
-							type: 'success',
-							message: 'Thank You! Your Registration is complete.'
-						});
-						$modalInstance.close(data);
-					}, function () {
-						AlertBanner.publish({
-							type: 'error',
-							message: 'Opps! Error while registering your data. Please reach out to prashant.dhiwar@gmail.com.'
-						});
-						console.log('Couldn\'t save receipt data.');
-						$modalInstance.close();
-	});
+   var registration = new Registrations({
+          studentType:$scope.item.studentType,
+          // productName : $scope.item.productName,
+          segmentName : $scope.item.segmentName,
+          sessionsSelected : $scope.item.sessionsSelected,
+          firstName : $scope.item.firstName,
+          lastName : $scope.item.lastName,
+         //  username : $scope.item.username,
+         //  password : $scope.item.password,
+          phone:$scope.item.phone,
+          email:$scope.item.email,
+          dateOfBirth:$scope.item.dateOfBirth,
+          occupation:$scope.item.occupation,
+          education:$scope.item.education,
+          officeAddress:$scope.item.officeAddress,
+          officeAcheievements:$scope.item.officeAcheievements
+     });
 
+
+   registration.$save(function (data) {
+                     console.log(data);
+             AlertBanner.publish({
+               type: 'success',
+               message: 'Thank You! Your Registration is complete.'
+             });
+             $modalInstance.close(data);
+           }, function () {
+             AlertBanner.publish({
+               type: 'error',
+               message: 'Opps! Error while registering your data. Please reach out to system administrator.'
+             });
+             console.log('Couldn\'t save receipt data.');
+             $modalInstance.close();
+   });
     $modalInstance.close();
   };
 

@@ -125,8 +125,8 @@
 
 
 							<ul id="schedule-tabs" class="nav nav-pills tab-fillspace">
-							  <li class="active"><a href="#tab_a" data-toggle="tab">Morning Session<sup>st</sup></a></li>
-							  <li><a href="#tab_b" data-toggle="tab">Afternoon Session<sup>nd</sup></a></li>
+							  <li class="active"><a href="#tab_a" data-toggle="tab">Morning Session</a></li>
+							  <li><a href="#tab_b" data-toggle="tab">Afternoon Session</a></li>
 							</ul>
 							<div class="tab-content">
 									<div class="tab-pane active" id="tab_a">
@@ -220,33 +220,13 @@
 					<div class="row">
 						<div class="col-md-12 wow fadeInUp animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; -webkit-animation-delay: 0.6s; animation-name: fadeInUp; -webkit-animation-name: fadeInUp;">
 							<h2 class="text-uppercase">Contact Us</h2>
-							<p>If you have any questions or suggestions, please feel free to reach us @ <a href="mailto:prashant.dhiwar@gmail.com?Subject=HostelSutdents%20Conference%20Pune" target="_top">Students Welfare</a></p>
+							<p>If you have any questions or suggestions, please feel free to reach us @ <a href="mailto:prashant.dhiwar@gmail.com?Subject=HostelSutdents%20Conference%20Pune" target="_top">Students Welfare Society</a></p>
 						</div>
 					</div>
 				</div>
 			</div>
   </section>
 
-
-
-    <!--
-    <footer id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>Hostel Students Welfare Group</strong>
-                    </h4>
-                    <p>Pune Station, Pune</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
-                        <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:name@example.com">prashant.dhiwar@gmail.com</a>
-                        </li>
-                    </ul>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </footer>  -->
 
     <!-- jQuery -->
     <script src="libs/jquery/dist/jquery.js"></script>
@@ -265,11 +245,99 @@
     <script type="text/ng-template" id="myModalContent.html">
       <div id="registration">
 			<div class="modal-header">
-				<h3 class="modal-title">Registration for Hostel Students Welfare Confenrence is closed.</h3>
+				<h3 class="modal-title">Students Registration</h3>
 			</div>
-			<div class="modal-footer">
-				<button class="btn btn-warning" ng-click="cancel()">Thank You!</button>
-			</div>
+
+      <div class="col-md-6 col-md-offset-3">
+          <form name="form" ng-submit="ok()" role="form">
+            <div class="form-group">
+              <label for="studentType">Students Type </label>
+              <select id="studentType" class="form-control" required>
+                <!-- <option value="" selected="selected">-- Select Student Type --</option> -->
+                <option ng-repeat="studentType in studentsTypes " ng-selected="item.studentType" ng-model="item.studentType">{{studentType.name}}</option>
+              </select>
+            </div>
+              <div class="form-group">
+                <label for="hostelName">Hostel</label>
+                <select id="hostelName" class="form-control">
+                  <!-- <option value="" selected="selected">-- Select Hostel --</option> -->
+                  <option ng-repeat="hostelName in hostels " ng-selected="item.segmentName" ng-model="item.segmentName">{{hostelName.name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="eduStream">Education Stream</label>
+                <select id="eduStream" class="form-control">
+                  <option value="" selected="selected">-- Select Education Stream --</option>
+                  <option ng-repeat="eduStream in sessiontopics " ng-selected="item.sessionsSelected" ng-model="item.sessionsSelected">{{eduStream.name}}</option>
+                </select>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+                  <label for="username">First name</label>
+                  <input type="text" name="firstName" id="firstName" class="form-control" ng-model="item.firstName" required />
+                  <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">*Required</span>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+                  <label for="lastName">Last name</label>
+                  <input type="text" name="lastName" id="lastName" class="form-control" ng-model="item.lastName" required />
+                  <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">*Required</span>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" id="username" class="form-control" ng-model="item.username" required />
+                  <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">*Required</span>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" id="password" class="form-control" ng-model="item.password" required />
+                  <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">*Required</span>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Date of Birth</label>
+                <div class="input-group date" id="datepicker">
+                  <input type="date" class="form-control" ng-model="item.dateOfBirth">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+               <label for="email">Email</label>
+            	 <input type="email" class="form-control" ng-model="item.email" placeholder="you@validemail.com" min="7" data-valid-pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+               <!-- <span class="glyphicon glyphicon-ok form-control-feedback fade"></span> -->
+               <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">*Required. Enter a valid email address.</span>
+
+              </div>
+              <div class="form-group" ng-class="{ 'has-error': form.phone.$dirty && form.phone.$error.required }">
+               <label for="phone">Phone</label>
+               <input type="text" ng-model="item.phone" class="form-control" data-mask="(999) 999-9999 x9999" placeholder="(555) 111-2222">
+               <!-- <span class="glyphicon glyphicon-ok form-control-feedback fade"></span> -->
+              <span ng-show="form.phone.$dirty && form.phone.$error.required" class="help-block">*Required</span>
+              </div>
+              <div class="form-group">
+                  <label for="education">Education</label>
+                  <input type="text" name="education" id="education" class="form-control" ng-model="item.education"/>
+              </div>
+              <div class="form-group">
+                  <label for="occupation">Occupation</label>
+                  <input type="text" name="occupation" id="occupation" class="form-control" ng-model="item.occupation" />
+              </div>
+              <div class="form-group">
+                  <label for="officeAddress">Office Address</label>
+                  <input type="text" name="officeAddress" id="officeAddress" class="form-control" ng-model="item.officeAddress"/>
+              </div>
+              <div class="form-group">
+                <label for="officeAcheievements">Professional Achievements</label>
+                <textarea class="form-control" name="officeAcheievements" ng-model="item.officeAcheievements"rows="3"></textarea>
+              </div>
+
+              <div class="form-actions">
+                  <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Register</button>
+                  <!-- <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /> -->
+                  <a href="/#" class="btn btn-link" ng-click="cancel()">Cancel</a>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button class="btn btn-warning" ng-click="cancel()">Thank You!</button> -->
+      </div>
 	   </div>
     </script>
 
