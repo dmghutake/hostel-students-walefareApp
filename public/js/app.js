@@ -9,7 +9,7 @@ app.factory('Registrations', function ($resource) {
 
 app.controller('ModalDemoCtrl',['$scope','$modal','$log', function ($scope, $modal, $log) {
   $scope.item = {};
-  $scope.hostels = [{id:1,name:'Youth Hostel'},{id:2,name:'Modern Hostel'},{id:3,name:'Travel Devpt Govt Boys Hostel'}];
+  $scope.hostels = [{id:1,name:'Sant Dnyaneshwar Boys Govt. Hostel'},{id:2,name:'Sant Janabai Backward class Girls Hostel'},{id:3,name:'Sant Tukaram Backward class Boys Hostel'}];
   $scope.studentsTypes = [{id:1,name:'Alumni'},{id:2,name:'New'}];
   $scope.item.segmentName = $scope.hostels[0].name;//hostels
   $scope.item.studentType= $scope.studentsTypes[0].name;//Alumni-New
